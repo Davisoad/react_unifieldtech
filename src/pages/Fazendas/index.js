@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import './styles.css';
+import './stylesfazenda.css';
 import api from '../../services/api';
 
 import logoUnifield from '../../assets/logounifield.png'
-import { FiXCircle, FiEdit, FiUserX } from 'react-icons/fi'
+import { FiEdit, FiUserX } from 'react-icons/fi'
 
 export default function Fazendas() {
     const [searchInput, setSearchInput] = useState('');
@@ -91,7 +91,7 @@ export default function Fazendas() {
 
                         <Nav.Link as={Link} to="/api/cliente">Cliente</Nav.Link>
 
-                        <Nav.Link as={Link} to="/api/cliente/0">Nova Fazenda</Nav.Link>
+                        <Nav.Link as={Link} to="/api/fazenda/0">Nova Fazenda</Nav.Link>
                     </Nav>
                     <Form inline className="ml-auto d-flex justify-content-end">
                         <FormControl
@@ -103,7 +103,7 @@ export default function Fazendas() {
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
-            <div className="cliente-container">
+            <div className="fazenda-container">
                 <h1>Relação de Fazendas</h1>
                 {searchInput.length > 1 ? (
                     <ul>
@@ -143,7 +143,7 @@ export default function Fazendas() {
                                 <b>Estado:</b>{fazenda.estado}<br /><br />
                                 <b>Latitude:</b>{fazenda.latitude}<br /><br />
                                 <b>Longitude:</b>{fazenda.longitude}<br /><br />
-                                <b>Tipo Plantio:</b>{fazenda.tipoPlantio ? 'Sim' : 'Não'}<br /><br />
+                                <b>Tipo Plantio:</b>{fazenda.tipoPlantio}<br /><br />
                                 <b>Área Mecanizada:</b>{fazenda.areaMecanizada ? 'Sim' : 'Não'}<br /><br />
                                 <b>Cliente ID:</b>{fazenda.clienteID}<br /><br />
                                 <button onClick={() => editFazenda(fazenda.fazendaID)} type="button">

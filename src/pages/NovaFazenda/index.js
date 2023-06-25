@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './styles.css';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { FiCornerDownLeft, FiUserPlus } from 'react-icons/fi';
@@ -15,19 +15,21 @@ export default function NovoFazenda() {
     const [estado, setEstado] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    const [tipoPlantio, setPlatio] = useState(false);
-    const [areaMecanizada, setMecanizada] = useState(Boolean);
-    const [clienteID, setDataClienteID] = useState(0);
-
+    const [tipoPlantio, setPlatio] = useState('');
+    const [areaMecanizada, setMecanizada] = useState(false);
+    const [cpfCliente, setCPFCliente] = useState('');
+    const [clienteID, setClienteID] = useState(0);
+    const cpfRef = useRef('');
     const { fazendaID } = useParams();
     const navigate = useNavigate();
+
 
     const token = localStorage.getItem('token');
     const authorization = {
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     useEffect(() => {
         if (fazendaID === '0') {
@@ -35,7 +37,28 @@ export default function NovoFazenda() {
         } else {
             loadFazenda();
         }
-    }, fazendaID);
+    }, [fazendaID]);
+
+    const handleClick = () => {
+        navigate('/api/fazenda');
+    };
+
+    const buscarIDCliente = async (cpf) => {
+        if (cpf !== '' && cpf !== cpfRef.current) {
+            try {
+                const response = await api.get(`/api/fazenda/buscar/cliente/cpf/${cpf}`, authorization);
+                if (response.data) {
+                    setClienteID(response.data);
+                } else {
+                    setClienteID('Cliente não encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar o ID do cliente:', error);
+                setClienteID('Erro ao buscar o ID do cliente');
+            }
+        }
+        cpfRef.current = cpf;
+    };
 
     async function loadFazenda() {
         try {
@@ -52,17 +75,17 @@ export default function NovoFazenda() {
             setLongitude(response.data.longitude);
             setPlatio(response.data.tipoPlantio);
             setMecanizada(response.data.areaMecanizada);
-            setDataClienteID(response.data.clienteID);
+            setClienteID(response.data.clienteID);
         } catch (error) {
             alert('Erro ao recuperar a fazenda ' + error);
             navigate('/api/fazenda');
         }
     }
 
-    async function saveOrUpdate(event) {
-        event.preventDefault();
+    const saveOrUpdate = async (e) => {
+        e.preventDefault(); // Evita o comportamento padrão de recarregar a página ao enviar o formulário
 
-        const data = {
+        const payload = {
             nomeFazenda,
             hectar,
             cultivar,
@@ -72,91 +95,64 @@ export default function NovoFazenda() {
             estado,
             latitude,
             longitude,
-            tipoPlantio: tipoPlantio, 
-            areaMecanizada : areaMecanizada,
-            clienteID: clienteID,
+            tipoPlantio,
+            areaMecanizada,
+            clienteID,
         };
 
         try {
             if (fazendaID === '0') {
-                await api.post('api/fazenda', data, authorization);
+                await api.post('api/fazenda', payload, authorization);
             } else {
-                data.fazendaid = id;
-                await api.put(`/api/fazenda/{id}?fazendaid=${fazendaID}`, data, authorization);
+                payload.fazendaid = id;
+                await api.put(`/api/fazenda/${id}?fazendaid=${fazendaID}`, payload, authorization);
             }
+
+            navigate('/api/fazenda');
         } catch (error) {
             alert('Erro ao gravar a fazenda ' + error);
         }
-        navigate('/api/fazenda');
-    }
+    };
 
     return (
         <div className="novo-cliente-container">
             <div className="content">
                 <section className="form">
                     <FiUserPlus size="105" color="#17202a" />
-                    <h1>{fazendaID === '0' ? 'Incluir Nova Fazenda' : 'Atualizar Fazenda'}</h1>
-                    <Link className="back-link" to="/api/fazenda">
-                        <FiCornerDownLeft size="25" color="#17202a" /> Retornar
-                    </Link>
+                    <h1 className="colorh1">{fazendaID === '0' ? 'Incluir Nova Fazenda' : 'Atualizar Fazenda'}</h1>
+                    <button className="back-button" onClick={handleClick}>
+                        <FiCornerDownLeft size={25} color="#17202a" />
+                    </button>
                 </section>
 
                 <form onSubmit={saveOrUpdate}>
+                    <input placeholder="Nome Fazenda" value={nomeFazenda} onChange={(e) => setNome(e.target.value)} />
+                    <input placeholder="Heactar" value={hectar} onChange={(e) => setHectar(e.target.value)} />
+                    <input placeholder="Cultivar" value={cultivar} onChange={(e) => setCultivar(e.target.value)} />
+                    <input placeholder="Rua" value={rua} onChange={(e) => setRua(e.target.value)} />
+                    <input placeholder="Número" value={num} onChange={(e) => setNum(e.target.value)} />
+                    <input placeholder="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} />
+                    <input placeholder="Estado" value={estado} onChange={(e) => setEstado(e.target.value)} />
+                    <input placeholder="Latitude" value={latitude} onChange={(e) => setLatitude(e.target.value)} />
+                    <input placeholder="Longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} />
+                    <input placeholder="Tipo Plantio" value={tipoPlantio} onChange={(e) => setPlatio(e.target.value)} />
+                    <label>
+                        <input
+                            type="checkbox"
+                            placeholder="Área Mecanizada"
+                            checked={areaMecanizada}
+                            onChange={(e) => setMecanizada(e.target.checked)}
+                        />
+                        Área Mecanizada
+                    </label>
+
                     <input
-                        placeholder="Nome Fazenda"
-                        value={nomeFazenda}
-                        onChange={(e) => setNome(e.target.value)}
+                        placeholder="CPF do Cliente"
+                        value={cpfCliente}
+                        onChange={(e) => setCPFCliente(e.target.value)}
+                        onBlur={() => buscarIDCliente(cpfCliente)}
                     />
-                    <input
-                        placeholder="Heactar"
-                        value={hectar}
-                        onChange={(e) => setHectar(e.target.value)}
-                    />
-                    <input
-                        placeholder="Cultivar"
-                        value={cultivar}
-                        onChange={(e) => setCultivar(e.target.value)}
-                    />
-                    <input
-                        placeholder="Rua"
-                        value={rua}
-                        onChange={(e) => setRua(e.target.value)}
-                    />
-                    <input
-                        placeholder="Número"
-                        value={num}
-                        onChange={(e) => setNum(e.target.value)}
-                    />
-                    <input
-                        placeholder="Estado"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
-                    />
-                    <input
-                        placeholder="Latitude"
-                        value={latitude}
-                        onChange={(e) => setLatitude(e.target.value)}
-                    />
-                    <input
-                        placeholder="Longitude"
-                        value={longitude}
-                        onChange={(e) => setLongitude(e.target.value)}
-                    />
-                    <input
-                        placeholder="Tipo Plantio"
-                        value={tipoPlantio}
-                        onChange={(e) => setPlatio(e.target.value)}
-                    />
-                    <input
-                        placeholder="Área Mecanizada"
-                        value={areaMecanizada}
-                        onChange={(e) => setMecanizada(e.target.value)}
-                    />
-                    <input
-                        placeholder="ClienteId"
-                        value={clienteID}
-                        onChange={(e) => setDataClienteID(e.target.value)}
-                    />
+
                     <button className="button" type="submit">
                         {fazendaID === '0' ? 'Incluir' : 'Atualizar'}
                     </button>

@@ -1,6 +1,5 @@
 .login-container {
   background-color: #aefbff;
-  /* Substitua pela cor azul claro desejada */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -9,19 +8,18 @@
 
 .card-custom {
   background-color: #034c77;
-  /* Substitua pela cor desejada para o MDBCard */
   border-radius: 0.5rem;
   max-width: 400px;
 }
 
+h2 {
+  color: #07fdfc;
+}
+
 .btn-custom {
-  background-color: #ccffeb;
+  background-color: #07fdfc;
   border: 2px solid #000000;
   border: 2px solid black;
-  /* Substitua pela cor desejada para a borda */
-  /* Outros estilos opcionais para personalizar o botão */
-
-  /* Evitar alteração de tamanho quando clicado */
   width: 150px;
   height: 50px;
 }
@@ -31,8 +29,7 @@
 }
 
 .background-image {
-  background-image: url('../../assets/cafe.jpg');
-  /* Substitua o caminho pela localização correta da imagem */
+  background-image: url('../../assets/cafe.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }

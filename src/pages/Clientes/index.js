@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import './styles.css';
+import './stylesclientes.css';
 import api from '../../services/api';
 
 import logoUnifield from '../../assets/logounifield.png'
@@ -80,7 +80,7 @@ export default function Clientes() {
     }
 
     return (
-        <>
+        <body>
             <Navbar expand="lg" className="custom-navbar">
                 <img src={logoUnifield} alt="Cadastro" className="brand-logo" />
                 <span className='m-span'>
@@ -154,6 +154,6 @@ export default function Clientes() {
                     </ul>
                 )}
             </div>
-        </>
+        </body>
     )
 }

@@ -23,6 +23,10 @@ export default function NovoCliente() {
         }
     }
 
+    const handleClick = () => {
+        navigate('/api/cliente');
+      };
+
     useEffect(() => {
         if (clienteID === '0') {
             return;
@@ -40,16 +44,6 @@ export default function NovoCliente() {
             }
         }
     }
-
-    // useEffect(() => {
-    //     if (dataNasc) {
-    //         const partesData = dataNasc.split('/');
-    //         if (partesData.length === 3) {
-    //             const dataFormatoSQL = `${partesData[2]}-${partesData[1]}-${partesData[0]}`;
-    //             setDataNascString(dataFormatoSQL);
-    //         }
-    //     }
-    // }, [dataNasc]);
 
     async function loadCliente() {
         try {
@@ -97,10 +91,10 @@ export default function NovoCliente() {
             <div className="content">
                 <section className="form">
                     <FiUserPlus size="105" color="#17202a" />
-                    <h1>{clienteID === '0' ? 'Incluir Novo Cliente' : 'Atualizar Cliente'}</h1>
-                    <Link className="back-link" to="/api/cliente">
-                        <FiCornerDownLeft size="25" color="#17202a" /> Retornar
-                    </Link>
+                    <h1 className='h1Cliente'>{clienteID === '0' ? 'Incluir Novo Cliente' : 'Atualizar Cliente'}</h1>
+                    <button className="back-button" onClick={handleClick}>
+                        <FiCornerDownLeft size={25} color="#17202a" /> 
+                    </button>
                 </section>
 
                 <form onSubmit={saveOrUpdate}>

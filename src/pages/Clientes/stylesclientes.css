@@ -1,9 +1,6 @@
-body {
-  background-color: #bcc6fd;
-}
-
 h1 {
   text-align: center;
+  color: #ffffff;
 }
 
 .cliente-container {
@@ -11,7 +8,7 @@ h1 {
   max-width: 1200px;
   padding: 0 25px;
   margin: 20px auto;
-}
+} 
 
 .cliente-container header {
   display: flex;
@@ -70,8 +67,9 @@ h1 {
 }
 
 .cliente-container ul li {
-  border: 4px solid #b61010;
-  padding: 2px;
+  background-color: #e5dfdf;
+  border: 4px solid #5effc5;
+  padding: 8px;
   border-radius: 5px;
   position: relative;
 }
@@ -185,13 +183,6 @@ h1 {
 
 .cor4 {
   animation: colorChange 4s linear infinite;
-}
-
-.background-image {
-  background-image: url('../../assets/cafe.jpg');
-  /* Substitua o caminho pela localização correta da imagem */
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .search-input {
