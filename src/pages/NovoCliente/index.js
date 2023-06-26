@@ -12,6 +12,7 @@ export default function NovoCliente() {
     const [e_Mail, setEmail] = useState('');
     const [dataNasc, setDataNascString] = useState('');
     const [password, setSenha] = useState('');
+    const [editingMode, setEditingMode] = useState(false); // Variável de estado para controlar o modo de edição
 
     const { clienteID } = useParams();
     const navigate = useNavigate();
@@ -19,13 +20,13 @@ export default function NovoCliente() {
     const token = localStorage.getItem('token');
     const authorization = {
         headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     const handleClick = () => {
         navigate('/api/cliente');
-      };
+    };
 
     useEffect(() => {
         if (clienteID === '0') {
@@ -55,6 +56,7 @@ export default function NovoCliente() {
             setEmail(response.data.e_Mail);
             setDataNascString(response.data.dataNacs);
             setSenha(response.data.password);
+            setEditingMode(true); // Atualiza o modo de edição para true quando carrega o cliente existente
         } catch (error) {
             alert('Erro ao recuperar o cliente ' + error);
             navigate('/api/cliente');
@@ -70,7 +72,7 @@ export default function NovoCliente() {
             cpf,
             CelularN: CelularN,
             dataNacs: dataNasc,
-            password
+            password,
         };
 
         try {
@@ -91,9 +93,11 @@ export default function NovoCliente() {
             <div className="content">
                 <section className="form">
                     <FiUserPlus size="105" color="#17202a" />
-                    <h1 className='h1Cliente'>{clienteID === '0' ? 'Incluir Novo Cliente' : 'Atualizar Cliente'}</h1>
+                    <h1 className="h1Cliente">
+                        {clienteID === '0' ? 'Incluir Novo Cliente' : 'Atualizar Cliente'}
+                    </h1>
                     <button className="back-button" onClick={handleClick}>
-                        <FiCornerDownLeft size={25} color="#17202a" /> 
+                        <FiCornerDownLeft size={25} color="#17202a" />
                     </button>
                 </section>
 
@@ -103,11 +107,13 @@ export default function NovoCliente() {
                         value={nomeCliente}
                         onChange={(e) => setNome(e.target.value)}
                     />
-                    <input
-                        placeholder="CPF"
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                    />
+                    {!editingMode ? (
+                        <input
+                            placeholder="CPF"
+                            value={cpf}
+                            onChange={(e) => setCpf(e.target.value)}
+                        />
+                    ) : null}
                     <input
                         placeholder="Telefone"
                         value={CelularN}
@@ -130,7 +136,6 @@ export default function NovoCliente() {
                         value={password}
                         onChange={(e) => setSenha(e.target.value)}
                     />
-
                     <button className="button" type="submit">
                         {clienteID === '0' ? 'Incluir' : 'Atualizar'}
                     </button>
@@ -139,3 +144,4 @@ export default function NovoCliente() {
         </div>
     );
 }
+        

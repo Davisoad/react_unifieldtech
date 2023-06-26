@@ -74,7 +74,7 @@ export default function Fazendas() {
     }
 
     return (
-        <body className='background-image'>           
+        <body>
             <Navbar expand="lg" className="custom-navbar">
                 <img src={logoUnifield} alt="Cadastro" className="brand-logo" />
                 <span className='m-span'>
@@ -83,8 +83,7 @@ export default function Fazendas() {
                     <span className='cor3'><strong>{email}</strong></span>
                     <span className='cor4'>!</span>
                 </span>
-
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-navbar-toggler" />
                 <Navbar.Collapse id="basic-navbar-nav" className='ml-configg'>
                     <Nav className="ml-auto">
                         <Nav.Link onClick={logout}>Logout</Nav.Link>
@@ -104,7 +103,7 @@ export default function Fazendas() {
                 </Navbar.Collapse>
             </Navbar>
             <div className="fazenda-container">
-                <h1>Relação de Fazendas</h1>
+                <h1>Fazendas</h1>
                 {searchInput.length > 1 ? (
                     <ul>
                         {filtro.map(fazenda => (

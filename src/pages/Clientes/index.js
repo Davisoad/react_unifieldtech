@@ -90,7 +90,7 @@ export default function Clientes() {
                     <span className='cor4'>!</span>
                 </span>
 
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-navbar-toggler" />
                 <Navbar.Collapse id="basic-navbar-nav" className='ml-configg'>
                     <Nav className="ml-auto">
                         <Nav.Link onClick={logout}>Logout</Nav.Link>

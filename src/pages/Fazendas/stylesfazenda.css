@@ -68,7 +68,7 @@ h1 {
 
 .fazenda-container ul li {
   background-color: #e5dfdf;
-  border: 4px solid #5effc5;
+  border: 4px solid #8ebc8b;
   padding: 8px;
   border-radius: 5px;
   position: relative;
@@ -103,6 +103,12 @@ h1 {
 .fazenda-container ul li p {
   color: #737380;
   line-height: 21px;
+  font-size: 16px;
+}
+
+.custom-navbar-toggler {
+  /* Defina a cor desejada */
+  background-color: #abadf7;
   font-size: 16px;
 }
 
@@ -186,12 +192,9 @@ h1 {
 }
 
 .search-input {
-  border-radius: 10px;
-  border-color: #ffc107;
-  margin-top: 10px;
-  margin-right: 100px;
-  width: 300px;
-  height: 40px;
+  border-radius: 8px;
+  border-color: #7f8ae8;
+  margin-top: auto;
 }
 
 .btn-outline-light {

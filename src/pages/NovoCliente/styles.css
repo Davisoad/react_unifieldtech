@@ -16,19 +16,19 @@
 .novo-cliente-container .content {
     width: 100%;
     padding: 96px;
-    background: #F0F0F5;
+    background-color: #CCE6FF; /* Nova cor de fundo (azul claro) */
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
+
 
 .button {
     color: #0c0c0c;
-    background-color: #b8b8ca;
+    background-color: #cdcbcb;
 }
 
 .novo-cliente-container .content section {
@@ -51,7 +51,7 @@
 
 .novo-cliente-container .content section h1{
     margin: 64px 0 32px;
-    font-size: 32px;
+    font-size: 32px;   
 }
 
 .novo-cliente-container .content section p {
@@ -67,4 +67,5 @@
 
 .novo-cliente-container .content form input {
     margin-top: 8px;
+    background-color: #ececec;
 }

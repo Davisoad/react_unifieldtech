@@ -136,22 +136,23 @@ export default function NovoFazenda() {
                     <input placeholder="Latitude" value={latitude} onChange={(e) => setLatitude(e.target.value)} />
                     <input placeholder="Longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} />
                     <input placeholder="Tipo Plantio" value={tipoPlantio} onChange={(e) => setPlatio(e.target.value)} />
-                    <label>
+                    <div className="check-label">
+                        <label htmlFor="areaMecanizada">Área Mecanizada:</label>
                         <input
                             type="checkbox"
-                            placeholder="Área Mecanizada"
+                            id="areaMecanizada"
                             checked={areaMecanizada}
                             onChange={(e) => setMecanizada(e.target.checked)}
                         />
-                        Área Mecanizada
-                    </label>
-
-                    <input
-                        placeholder="CPF do Cliente"
-                        value={cpfCliente}
-                        onChange={(e) => setCPFCliente(e.target.value)}
-                        onBlur={() => buscarIDCliente(cpfCliente)}
-                    />
+                    </div>
+                    {fazendaID === '0' && (
+                        <input
+                            placeholder="CPF do Cliente"
+                            value={cpfCliente}
+                            onChange={(e) => setCPFCliente(e.target.value)}
+                            onBlur={() => buscarIDCliente(cpfCliente)}
+                        />
+                    )}
 
                     <button className="button" type="submit">
                         {fazendaID === '0' ? 'Incluir' : 'Atualizar'}
