@@ -83,7 +83,8 @@ export default function NovoCliente() {
                 await api.put(`/api/cliente/{id}?clienteid=${clienteID}`, data, authorization);
             }
         } catch (error) {
-            alert('Erro ao gravar cliente ' + error);
+            console.error('Erro ao gravar cliente', error);
+            alert('Ocorreu um erro ao gravar o cliente. Por favor, tente novamente mais tarde.');
         }
         navigate('/api/cliente');
     }

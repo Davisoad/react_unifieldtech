@@ -103,7 +103,7 @@ export default function Fazendas() {
                 </Navbar.Collapse>
             </Navbar>
             <div className="fazenda-container">
-                <h1>Fazendas</h1>
+                <h1 className='h1fazenda'>Fazendas</h1>
                 {searchInput.length > 1 ? (
                     <ul>
                         {filtro.map(fazenda => (

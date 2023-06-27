@@ -5,6 +5,7 @@ import Clientes from './pages/Clientes';
 import NovoCliente from './pages/NovoCliente';
 import Fazendas from './pages/Fazendas';
 import NovoFazenda from './pages/NovaFazenda';
+import QRCodes from './pages/QrCodes';
 
 export default function AppRoutes() {
     return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
                 <Route path="/api/cliente/:clienteID" element={<NovoCliente />} />
                 <Route path="/api/fazenda" element={<Fazendas />} />
                 <Route path="/api/fazenda/:fazendaID" element={<NovoFazenda />} />
+                <Route path="/qrcode" element={<QRCodes />} />
             </Routes>
         </BrowserRouter>
     );

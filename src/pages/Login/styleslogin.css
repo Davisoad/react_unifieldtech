@@ -6,11 +6,20 @@
   align-items: center;
 }
 
+.dlogin {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 5px;
+  padding-top: 20px;
+}
+
 .card-custom {
   background-color: #034c77;
-  border-radius: 0.5rem;
+  border-radius: 0.9rem;
   max-width: 400px;
   opacity: 0.9;
+  padding-bottom: 40px;
 }
 
 h2 {
@@ -32,5 +41,4 @@ h2 {
 .background-image {
   background-image: url('../../assets/cafe.jpeg');
   background-repeat: no-repeat;
-  background-size: cover;
 }

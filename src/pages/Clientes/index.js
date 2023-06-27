@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 import './stylesclientes.css';
 import api from '../../services/api';
 
@@ -23,6 +23,21 @@ export default function Clientes() {
             Authorization: `Bearer ${token}`
         }
     }
+
+    const handleLinkClick = async () => {
+        // Exibir o formulário
+        const resposta = window.prompt('Você já cadastrou seu número no WhatsApp? (sim / não)');
+
+        if (resposta && resposta.toLowerCase() === 'sim') {
+            // Redirecionar para a rota com o ID do cliente 0
+            navigate('/api/cliente/0');
+        } else if (resposta && (resposta.toLowerCase() === 'não' || resposta.toLowerCase() === 'nao')) {
+            // Redirecionar para a rota adequada
+            navigate('/qrcode');
+        } else {
+            alert('Digite algo válido!');
+        }
+    };
 
     const searchClientes = (searchValue) => {
         setSearchInput(searchValue);
@@ -63,7 +78,7 @@ export default function Clientes() {
         try {
             navigate(`/api/cliente/${clienteID}`);
         } catch (error) {
-            alert('Não foi possível editar o cliente')
+            alert('Não foi possível editar o cliente' + error)
         }
     }
 
@@ -97,7 +112,7 @@ export default function Clientes() {
                         {hasClientes && (
                             <Nav.Link as={Link} to="/api/fazenda">Fazenda</Nav.Link>
                         )}
-                        <Nav.Link as={Link} to="/api/cliente/0">Novo Cliente</Nav.Link>
+                        <Nav.Link onClick={handleLinkClick}>Novo Cliente</Nav.Link>
                     </Nav>
                     <Form inline className="ml-auto d-flex justify-content-end">
                         <FormControl
@@ -110,7 +125,7 @@ export default function Clientes() {
                 </Navbar.Collapse>
             </Navbar>
             <div className="cliente-container">
-                <h1>Clientes</h1>
+                <h1 className='h1clientes'>Clientes</h1>
                 {searchInput.length > 1 ? (
                     <ul>
                         {filtro.map(cliente => (
